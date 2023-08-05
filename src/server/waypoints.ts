@@ -99,8 +99,8 @@ async function purchaseMiningDrone(shipyardWaypointSymbol: string) {
 			headers: {
 				"Content-Type": "application/json",
 				Authorization:
-					"Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGlmaWVyIjoiUkFUIiwidmVyc2lvbiI6InYyIiwicmVzZXRfZGF0ZSI6IjIwMjMtMDctMjkiLCJpYXQiOjE2OTA5MzU1NzUsInN1YiI6ImFnZW50LXRva2VuIn0.BYOxPTSni7BofWzLQ98ER_502UJQWOPfeHznWfY2SF_MKnWHjOof6FbTnPAhJfFlpwfNt-9A79G03904r0s2hpGs-pNtMOmPPwkljTnZYdvwjZgoHmHdRS9zKlbPlDLldGFxIJMGWrRArnZbld0xT8VsUYHZuNUp2fPNGLWu-UuTTiOBdEJGsJlQnNZc3S0Zw1FMbowwiJplo8uyMfKuzqivB0cXdvOpDNsgUqI-VrTTStJDwrk3ONNn2PymBTOmmK44hVN0D4l78-OpSajNIvfnXyqD_jg8oZeCv1dIisFsuZBpkyoAg0myhEqxp1t45JaB9Ahj_YwPeDgi_IRczA",
-			},
+					"Bearer " + process.env.TOKEN
+				},
 			body: JSON.stringify({
 				shipType: "SHIP_MINING_DRONE",
 				waypointSymbol: shipyardWaypointSymbol,
