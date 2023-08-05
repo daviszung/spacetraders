@@ -1,0 +1,26 @@
+{
+  "name": "spacetraders",
+  "module": "index.ts",
+  "type": "module",
+  "main": "src/server/server.ts",
+  "scripts": {
+    "start": "bun run src/server.ts",
+    "b": "bun build --minify --outdir=dist src/index.tsx",
+    "css": "bunx tailwindcss -i ./src/input.css -o ./dist/output.css --watch"
+
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.18",
+    "@types/react-dom": "^18.2.7",
+    "@types/web": "^0.0.112",
+    "bun-types": "latest",
+    "tailwindcss": "^3.3.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
