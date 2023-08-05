@@ -48,8 +48,6 @@ serve({
       console.log(routeFunction);
       const response = await routeFunction();
 
-      console.log('htmlLoad: ', response);
-
       return new Response(JSON.stringify(response), {
         headers: {
           "content-type": "application/json"

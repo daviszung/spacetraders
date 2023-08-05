@@ -18,11 +18,9 @@ export async function getAgentDetails() {
 		const detailsBody: { data: AgentDetails } = await details.json();
 		const data = detailsBody.data;
 
-		console.log(data);
-		
-		return data
+		return data;
 	} catch (err) {
 		console.log("error: ", err);
 	}
-	return
+	return {}
 }
