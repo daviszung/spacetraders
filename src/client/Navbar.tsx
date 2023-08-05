@@ -1,37 +1,19 @@
-export type AgentDetails = {
-    accountId: string;
-    symbol: string;
-    headquarters: string;
-    credits: number;
-    startingFaction: string;
-};
 
 type NavbarProps = {
-    setAgentDetails: Function
+    setCurrentDashboard: Function
 }
 
-export function Navbar({setAgentDetails}: NavbarProps) {
-
-    async function requestAgentDetails() {
-        const res = await fetch('/agent', {
-            headers: {
-                "content-type": "application/json",
-            }
-        });
-        const body: AgentDetails = await res.json();
-        console.log(body);
-        return body;
-    }
+export function Navbar({setCurrentDashboard}: NavbarProps) {
 
     return (
-        <nav className="flex items-center px-16 border-b border-emerald-700">
-            <div className="px-32 py-10">
-                <button onClick={async () => {
-                    const agentDetails = await requestAgentDetails();
-                    setAgentDetails(agentDetails)
-
-                }} className="rounded-xl bg-emerald-500 px-4 py-2 text-white font-semibold">Agent</button>
-
+        <nav className="flex items-center px-32 border-b border-emerald-600">
+            <div className="flex py-4 gap-4">
+                <button onClick={() => {
+                    setCurrentDashboard("agent")
+                }} className="rounded bg-emerald-900 px-4 py-2 text-emerald-300 font-semibold">Agent</button>
+                <button onClick={() => {
+                    setCurrentDashboard("contract");
+                }} className="rounded bg-emerald-900 px-4 py-2 text-emerald-300 font-semibold">Contracts</button>
             </div>
         </nav>
     );

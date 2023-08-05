@@ -1,26 +1,24 @@
 import { useState } from "react";
 import { Navbar } from "./Navbar";
 
-import { AgentDetails } from "./Navbar";
+import { ContractDashboard } from "./ContractDashboard";
+import { AgentDashboard } from "./AgentDashboard";
 
+type Dashboards = "agent" | "contract"
+
+const dashboards = {
+    agent: <AgentDashboard />,
+    contract: <ContractDashboard />,
+}
 
 export function App() {
-    const [agentDetails, setAgentDetails] = useState<AgentDetails>();
-
-    console.log(agentDetails);
+    const [currentDashboard, setCurrentDashboard] = useState<Dashboards>("agent")
 
     return (
         <div className="h-screen bg-slate-900 text-white">
-            <Navbar setAgentDetails={setAgentDetails} />
-            <main>
-                {agentDetails &&
-                    <ul>
-                        <li>{agentDetails.symbol}</li>
-                        <li>{agentDetails.headquarters}</li>
-                        <li>{agentDetails.credits}</li>
-                        <li>{agentDetails.startingFaction}</li>
-                    </ul>
-                }
+            <Navbar setCurrentDashboard={setCurrentDashboard} />
+            <main className="px-32 py-10">
+                {dashboards[currentDashboard]}
             </main>
 
         </div>
