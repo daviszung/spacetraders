@@ -11,10 +11,13 @@ export function Navbar({currentDashboard, setCurrentDashboard}: NavbarProps) {
             <div className="flex py-4 gap-4">
                 <button onClick={() => {
                     setCurrentDashboard("agent")
-                }}  className={`${currentDashboard === "agent" ? "text-amber-300" : "text-slate-700 bg-transparent"} px-6 py-2 text-xl font-bold`}>Agent</button>
+                }}  className={`${currentDashboard === "agent" ? "text-amber-300" : "text-slate-700 bg-transparent"} px-6 py-2 text-xl font-bold`}>AGENT</button>
                 <button onClick={() => {
                     setCurrentDashboard("contract");
-                }} className={`${currentDashboard === "contract" ? "text-amber-300" : "text-slate-700 bg-transparent"} px-6 py-2 text-xl font-bold`}>Contracts</button>
+                }} className={`${currentDashboard === "contract" ? "text-amber-300" : "text-slate-700 bg-transparent"} px-6 py-2 text-xl font-bold`}>CONTRACTS</button>
+                <button onClick={() => {
+                    setCurrentDashboard("ships");
+                }} className={`${currentDashboard === "ships" ? "text-amber-300" : "text-slate-700 bg-transparent"} px-6 py-2 text-xl font-bold`}>SHIPS</button>
             </div>
         </nav>
     );

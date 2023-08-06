@@ -1,5 +1,6 @@
-import { getAgentDetails } from './agentDetails'
-import { getMyContracts, acceptContract } from './Contracts';
+import { getAgentDetails } from './agent'
+import { getShips } from './ships';
+import { getMyContracts, acceptContract } from './contracts';
 import { file, serve } from 'bun';
 
 type Router = {
@@ -13,6 +14,7 @@ type PostRequestBody = {
 
 const routes: Router = {
   "/agent":  getAgentDetails,
+  "/ships": getShips,
   "/contracts": getMyContracts,
   "/contracts/accept": acceptContract
 }
