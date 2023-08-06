@@ -5,7 +5,7 @@ const options = {
 	},
 };
 
-async function getMyContracts() {
+export async function getMyContracts() {
 	try {
 		const details = await fetch(
 			"https://api.spacetraders.io/v2/my/contracts",
@@ -14,7 +14,8 @@ async function getMyContracts() {
 
 		const detailsBody = await details.json();
 
-		console.log(detailsBody);
+		return detailsBody;
+
 	} catch (err) {
 		console.log("error: ", err);
 	}
@@ -22,7 +23,7 @@ async function getMyContracts() {
 	return;
 }
 
-async function acceptContract(contractID: string) {
+export async function acceptContract(contractID: string) {
 	try {
 		const response = await fetch(
 			`https://api.spacetraders.io/v2/my/contracts/${contractID}/accept`,
@@ -38,11 +39,11 @@ async function acceptContract(contractID: string) {
 		const responseBody = await response.json();
 
 		console.log(responseBody);
+		return responseBody;
+		
 	} catch (err) {
 		console.log("error: ", err);
 	}
 
 	return;
 }
-
-acceptContract("clkszds1dm3iws60cvcun8a6l");

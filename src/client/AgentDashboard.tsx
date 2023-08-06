@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
+import { DataList } from "./DataList";
 
 
-type AgentDetails = {
+export type AgentDetails = {
     accountId: string;
     symbol: string;
     headquarters: string;
@@ -12,6 +13,8 @@ type AgentDetails = {
 export function AgentDashboard() {
 
     const [agentDetails, setAgentDetails] = useState<AgentDetails>();
+    
+    const labels = ["SYMBOL", "HQ", "CREDITS", "FACTION"];
 
     useEffect(() => {
         fetch('/agent', {
@@ -27,22 +30,9 @@ export function AgentDashboard() {
 
     return (
         <div>
-            <div className="flex">
-                <ul className="font-semibold text-lg gap-2 mr-8">
-                    <li>SYMBOL</li>
-                    <li>HQ</li>
-                    <li>CREDITS</li>
-                    <li>FACTION</li>
-                </ul>
-                {agentDetails &&
-                    <ul className="font-semibold text-lg gap-2 italic text-emerald-600">
-                        <li>{agentDetails.symbol}</li>
-                        <li>{agentDetails.headquarters}</li>
-                        <li>{agentDetails.credits}</li>
-                        <li>{agentDetails.startingFaction}</li>
-                    </ul>
-                }
-            </div>
+            {agentDetails && 
+                <DataList labels={labels} data={[agentDetails.symbol, agentDetails.headquarters, agentDetails.credits, agentDetails.startingFaction]}></DataList>
+            }
         </div>
     );
 };

@@ -16,7 +16,7 @@ export function App() {
 
     return (
         <div className="h-screen bg-slate-900 text-white">
-            <Navbar setCurrentDashboard={setCurrentDashboard} />
+            <Navbar setCurrentDashboard={setCurrentDashboard} currentDashboard={currentDashboard}/>
             <main className="px-32 py-10">
                 {dashboards[currentDashboard]}
             </main>

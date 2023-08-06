@@ -22,5 +22,5 @@ export async function getAgentDetails() {
 	} catch (err) {
 		console.log("error: ", err);
 	}
-	return {}
+	return;
 }

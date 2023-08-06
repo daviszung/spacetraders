@@ -1,12 +1,20 @@
 import { getAgentDetails } from './agentDetails'
+import { getMyContracts, acceptContract } from './Contracts';
 import { file, serve } from 'bun';
 
 type Router = {
   [index: string]: Function
 }
 
+type PostRequestBody = {
+  target: string
+  arguments: any[]
+}
+
 const routes: Router = {
-  "/agent":  getAgentDetails
+  "/agent":  getAgentDetails,
+  "/contracts": getMyContracts,
+  "/contracts/accept": acceptContract
 }
 
 
@@ -45,8 +53,15 @@ serve({
     }
     else {
       const routeFunction = routes[pathname];
-      console.log(routeFunction);
-      const response = await routeFunction();
+      let response;
+      
+      if (req.method !== "GET") {
+        const body: PostRequestBody = await req.json()
+        console.log(body);
+        response = await routeFunction(...body.arguments)
+      } else {
+        response = await routeFunction();
+      }
 
       return new Response(JSON.stringify(response), {
         headers: {
