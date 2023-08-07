@@ -1,3 +1,24 @@
+
+export async function getAllSystems() {
+	let result;
+
+	const options = {
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: "Bearer " + process.env.TOKEN, 
+		},
+	};
+
+	fetch("https://api.spacetraders.io/v2/systems", options)
+		.then((response) => response.json())
+		.then((response) => {
+			console.log(response);
+			return response
+		})
+		.catch((err) => console.error(err));
+
+}
+
 async function getWaypointsInSystem(systemID: string) {
 	try {
 		const response = await fetch(
@@ -132,6 +153,3 @@ async function main() {
 	purchaseMiningDrone("X1-AB85-54087X")
 
 }
-
-
-main();

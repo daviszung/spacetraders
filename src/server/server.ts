@@ -1,7 +1,8 @@
+import { file, serve } from 'bun';
 import { getAgentDetails } from './agent'
 import { getShips } from './ships';
 import { getMyContracts, acceptContract } from './contracts';
-import { file, serve } from 'bun';
+import { getAllSystems } from './navigation';
 
 type Router = {
   [index: string]: Function
@@ -16,7 +17,8 @@ const routes: Router = {
   "/agent":  getAgentDetails,
   "/ships": getShips,
   "/contracts": getMyContracts,
-  "/contracts/accept": acceptContract
+  "/contracts/accept": acceptContract,
+  "/navigation/systems": getAllSystems
 }
 
 
@@ -59,7 +61,6 @@ serve({
       
       if (req.method !== "GET") {
         const body: PostRequestBody = await req.json()
-        console.log(body);
         response = await routeFunction(...body.arguments)
       } else {
         response = await routeFunction();

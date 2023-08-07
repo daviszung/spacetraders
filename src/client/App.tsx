@@ -4,6 +4,7 @@ import { Navbar } from "./Navbar";
 import { ContractDashboard } from "./ContractDashboard";
 import { AgentDashboard } from "./AgentDashboard";
 import { ShipsDashboard } from "./ShipsDashboard";
+import { NavigationDashboard } from "./NavigationDashboard";
 
 type Dashboards = "agent" | "contract"
 
@@ -11,6 +12,7 @@ const dashboards = {
     agent: <AgentDashboard />,
     contract: <ContractDashboard />,
     ships: <ShipsDashboard />,
+    navigation: <NavigationDashboard />
 }
 
 export function App() {

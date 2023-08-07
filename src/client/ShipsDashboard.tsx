@@ -145,6 +145,10 @@ export function ShipsDashboard() {
             .catch(err => console.log(err));
 
     }, []);
+
+    if (ships) {
+        console.log(ships);
+    }
     return (
         <div>
           <div className="font-bold text-2xl text-amber-400 my-4">SHIPS</div>
