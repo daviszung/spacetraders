@@ -1,2 +1,8 @@
 a bunch of different dashbaord menus
 and when you select one from the nav then we just swap out a component
+
+
+for the ships component:
+make the component have info in the middle, and at the bottom there is a row of icons
+each icon takes you to a different menu for the ship, and there should be some kind of animation
+that transitions the menu change.

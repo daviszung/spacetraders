@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Ship } from "./Ship";
 
 type Route = {
     departure: {
@@ -15,8 +16,6 @@ type Route = {
         x: number,
         y: number;
     },
-    status: string,
-    flightMode: "CRUISE" | "BURN" | "DRIFT" | "STEALTH";
 };
 
 type Crew = {
@@ -113,12 +112,14 @@ type Cargo = {
     inventory: string[]
 }
 
-type Ship = {
+export type Ship = {
     symbol: string,
     nav: {
         systemSymbol: string,
         waypointSymbol: string,
         route: Route;
+        status: string,
+        flightMode: "CRUISE" | "BURN" | "DRIFT" | "STEALTH";
     };
     crew: Crew;
     fuel: Fuel;
@@ -153,10 +154,7 @@ export function ShipsDashboard() {
         <div>
           <div className="font-bold text-2xl text-amber-400 my-4">SHIPS</div>
           {ships && ships.map((ship, index) => (
-            <div>
-                <div>{ship.registration.name}</div>
-                <div>{ship.registration.role}</div>
-            </div>
+            <Ship ship={ship}></Ship>
           ))}
 
         </div>

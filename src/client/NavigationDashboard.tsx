@@ -37,23 +37,47 @@ export function NavigationDashboard() {
 
         function drawMap() {
             console.log("Drawing map");
+
+            context.strokeStyle = 'blue'
+            context.lineWidth = 5;
+            context.strokeRect(0, 0, canvasWidth, canvasHeight)
+
             context.fillStyle = 'green';
             context.fillRect(0, 200, 300, 300);
             context.fillStyle = 'purple'
             context.fillRect(800, 200, 300, 300);
+
+            
         }
 
-
-        context.fillStyle = 'black'
-        context.fillRect(0, 0, 2000, 2000);
-
         function renderViewport() {
-            // context.clearRect(0, 0, canvasWidth, canvasHeight);
+            context.fillStyle = 'black';
+            context.fillRect(0, 0, viewportWidth, viewportHeight);
 
-            context.drawImage(canvas,
-                viewportX, viewportY, viewportWidth, viewportHeight,
-                0, 0, viewportWidth, viewportHeight);
-        };
+            // Save the current state before rendering the viewport
+            context.save();
+
+            // Translate the canvas to the viewport position
+            context.translate(-viewportX, -viewportY);
+
+            // Draw the map in the translated canvas space
+            drawMap();
+
+            // Restore the original state
+            context.restore();
+        }
+        
+
+
+        // function renderViewport() {
+        //     context.clearRect(0, 0, viewportWidth, viewportHeight);
+
+        //     context.fillStyle = 'black'
+        //     context.fillRect(0, 0, viewportWidth, viewportHeight);
+        //     context.drawImage(canvas,
+        //         viewportX, viewportY, viewportWidth, viewportHeight,
+        //         0, 0, viewportWidth, viewportHeight);
+        // };
 
         function handleMouseDown(e: MouseEvent) {
             isDragging = true;
@@ -66,7 +90,6 @@ export function NavigationDashboard() {
         }
 
         function handleMouseMove(e: MouseEvent) {
-            console.log("HANDLE MOUSE MOVE", e);
             if (isDragging) {
                 const deltaX = e.clientX - lastMouseX;
                 const deltaY = e.clientY - lastMouseY;
@@ -87,17 +110,23 @@ export function NavigationDashboard() {
         }
 
         drawMap();
+        renderViewport();
 
         canvas.addEventListener('mousedown', handleMouseDown)
         canvas.addEventListener('mouseup', handleMouseUp)
         canvas.addEventListener('mousemove', handleMouseMove)
 
+        return () => {
+            canvas.removeEventListener('mousedown', handleMouseDown)
+            canvas.removeEventListener('mouseup', handleMouseUp)
+            canvas.removeEventListener('mousemove', handleMouseMove)
+        }
     }, []);
 
 
     return (
         <div>
-            <canvas className="cursor-grab" ref={canvasRef} width={3000} height={3000}></canvas>
+            <canvas className="cursor-grab" ref={canvasRef} width={2000} height={2000}></canvas>
 
         </div>
     );

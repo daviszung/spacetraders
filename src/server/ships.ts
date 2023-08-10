@@ -11,6 +11,8 @@ export async function getShips() {
 		const body: {data: any[]} = await response.json();
         const data = body.data;
 
+		console.log(data);
+
         return data;
 
 	} catch (err) {
