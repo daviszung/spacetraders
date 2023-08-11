@@ -19,7 +19,7 @@ export async function getAllSystems() {
 
 }
 
-async function getWaypointsInSystem(systemID: string) {
+export async function getWaypointsInSystem(systemID: string) {
 	try {
 		const response = await fetch(
 			`https://api.spacetraders.io/v2/systems/${systemID}/waypoints`,
@@ -60,7 +60,7 @@ type SystemObject = {
 	};
 };
 
-type WaypointsList = SystemObject[];
+export type WaypointsList = SystemObject[];
 
 function findTrait(targetTrait: string, waypoints: { data: WaypointsList }) {
 	if (!waypoints.data) {
@@ -141,11 +141,8 @@ async function purchaseMiningDrone(shipyardWaypointSymbol: string) {
 		return;
 	}
 }
+
 async function main() {
-	const waypoints = (await getWaypointsInSystem("X1-AB85")) as {
-		data: WaypointsList;
-	};
-	const result = findTrait("SHIPYARD", waypoints);
 
 	const availableShips = await viewAvailableShips("X1-AB85", "X1-AB85-54087X")
 

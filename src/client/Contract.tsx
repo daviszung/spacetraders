@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Contract } from "./ContractDashboard";
 import { AgentDetails } from "./AgentDashboard";
 import { faHandshake, faList } from "@fortawesome/free-solid-svg-icons";
+import { PostRequestBody } from "../server/server";
 
 type ContractProps = {
     contract: Contract;
@@ -11,18 +12,18 @@ type ContractProps = {
 
 type SuccessfulAccept = {
     data: {
-        agent: AgentDetails 
-        contract: Contract
-    }
-}
+        agent: AgentDetails;
+        contract: Contract;
+    };
+};
 
 type FailMessage = {
     error: {
-        message: string
-        code: number
-        data: any
-    }
-}
+        message: string;
+        code: number;
+        data: any;
+    };
+};
 
 function timeUntilTime(deadline: string) {
     const currentTime = new Date();
@@ -66,17 +67,19 @@ export function Contract({ contract }: ContractProps) {
 
     async function acceptContract() {
         try {
+
+            const reqBody: PostRequestBody = {
+                target: "/contracts/accept",
+                arguments: [contract.id]
+            };
+
             const res = await fetch('/contracts/accept', {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
                 },
-                body: JSON.stringify(
-                    {
-                        target: "/contracts/accept",
-                        arguments: [contract.id]
-                    })
-            })
+                body: JSON.stringify(reqBody)
+            });
 
             const body = await res.json();
             console.log(body);
@@ -133,8 +136,8 @@ export function Contract({ contract }: ContractProps) {
                     }
                 }} className="scale-150 cursor-pointer" icon={faList} />
                 <FontAwesomeIcon onClick={() => {
-                    acceptContract()
-                }} className="scale-150 cursor-pointer" icon={faHandshake}/>
+                    acceptContract();
+                }} className="scale-150 cursor-pointer" icon={faHandshake} />
             </div>
         </div>
     );

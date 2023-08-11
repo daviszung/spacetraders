@@ -2,13 +2,13 @@ import { file, serve } from "bun";
 import { getAgentDetails } from "./agent";
 import { getShips } from "./ships";
 import { getMyContracts, acceptContract } from "./contracts";
-import { getAllSystems } from "./navigation";
+import { getAllSystems, getWaypointsInSystem } from "./navigation";
 
 type Router = {
 	[index: string]: Function;
 };
 
-type PostRequestBody = {
+export type PostRequestBody = {
 	target: string;
 	arguments: any[];
 };
@@ -19,6 +19,7 @@ const routes: Router = {
 	"/contracts": getMyContracts,
 	"/contracts/accept": acceptContract,
 	"/navigation/systems": getAllSystems,
+	"/systems/waypoints": getWaypointsInSystem
 };
 
 serve({
