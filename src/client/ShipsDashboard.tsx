@@ -151,10 +151,10 @@ export function ShipsDashboard() {
         console.log(ships);
     }
     return (
-        <div>
-          <div className="font-bold text-2xl text-amber-400 my-4">SHIPS</div>
+        <div className="flex flex-col gap-6">
+          <div className="font-bold text-2xl text-amber-400">SHIPS</div>
           {ships && ships.map((ship, index) => (
-            <Ship ship={ship}></Ship>
+            <Ship ship={ship} key={index}></Ship>
           ))}
 
         </div>
