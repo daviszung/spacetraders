@@ -12,7 +12,7 @@ export async function getAllSystems() {
 	fetch("https://api.spacetraders.io/v2/systems", options)
 		.then((response) => response.json())
 		.then((response) => {
-			console.log(response);
+			console.log("SYSTEMS", response);
 			return response
 		})
 		.catch((err) => console.error(err));
@@ -62,20 +62,15 @@ type SystemObject = {
 
 export type WaypointsList = SystemObject[];
 
-function findTrait(targetTrait: string, waypoints: { data: WaypointsList }) {
-	if (!waypoints.data) {
-		console.log("Error no waypoint data");
-		return;
-	}
-
+export function findTrait(targetTrait: string, waypoints: WaypointsList) {
 	const results = [];
 
-	for (let i = 0; i < waypoints.data.length; i++) {
-		const traits = waypoints.data[i].traits;
+	for (let i = 0; i < waypoints.length; i++) {
+		const traits = waypoints[i].traits;
 
 		for (let trait = 0; trait < traits.length; trait++) {
 			if (traits[trait]["symbol"] === targetTrait) {
-				results.push(waypoints.data[i]);
+				results.push(waypoints[i]);
 			}
 		}
 	}

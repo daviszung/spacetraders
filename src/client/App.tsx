@@ -9,6 +9,13 @@ import { UnnamedDashboard } from "./UnnamedDashboard";
 
 type Dashboards = "agent" | "contract"
 
+export type GameError = {
+    error: {
+        code: number;
+        message: string;
+    };
+}
+
 const dashboards = {
     agent: <AgentDashboard />,
     contract: <ContractDashboard />,
