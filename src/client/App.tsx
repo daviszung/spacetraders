@@ -29,7 +29,7 @@ export function App() {
     const [currentDashboard, setCurrentDashboard] = useState<Dashboards>("agent")
 
     return (
-        <div className="h-screen bg-slate-900 text-white">
+        <div className="min-h-screen bg-slate-900 text-white">
             <Navbar setCurrentDashboard={setCurrentDashboard} currentDashboard={currentDashboard}/>
             <main className="px-32 py-10">
                 {dashboards[currentDashboard]}

@@ -46,7 +46,7 @@ type Trait = {
 	description: string;
 };
 
-type SystemObject = {
+export type Waypoint = {
 	systemSymbol: string;
 	symbol: string;
 	type: string;
@@ -60,7 +60,7 @@ type SystemObject = {
 	};
 };
 
-export type WaypointsList = SystemObject[];
+export type WaypointsList = Waypoint[];
 
 export function findTrait(targetTrait: string, waypoints: WaypointsList) {
 	const results = [];
