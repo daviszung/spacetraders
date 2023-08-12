@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { WaypointsList } from "../server/navigation";
 import { PostRequestBody } from "../server/server";
@@ -17,9 +17,21 @@ type FetchWaypointsData = {
     };
 };
 
-const waypointLabels = ["SYMBOL"];
+const typeColors: {[index: string]: string} = {
+    "PLANET": "shadow-blue-500",
+    "GAS_GIANT": "shadow-rose-700",
+    "MOON": "shadow-slate-100",
+    "ORBITAL_STATION": "shadow-emerald-300",
+    "JUMP_GATE": "shadow-violet-400",
+    "ASTEROID_FIELD": "shadow-yellow-800"
+
+}
+
+
+const waypointLabels = ["SYMBOL", "TYPE"];
 
 export function UnnamedDashboard() {
+
     const [waypointsList, setWaypointsList] = useState<WaypointsList>([]);
     const [displayedWaypoints, setDisplayedWaypoints] = useState<WaypointsList>([]);
 
@@ -51,13 +63,20 @@ export function UnnamedDashboard() {
         }
     }
 
+    useEffect(() => {
+        const inputBox = document.getElementById("systemIDInput");
+        inputBox?.addEventListener("keypress", (event) => {if (event.key === "Enter") handleSystemIDInput()})
+
+        return () => {
+            inputBox?.removeEventListener("keypress", (event) => {if (event.key === "Enter") handleSystemIDInput()})
+        }
+    }, [])
+
     return (
         <div>
             {!waypointsList.length && (
                 <div className="fixed left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%] w-fit flex items-center gap-2 font-semibold">
-                    <input id="systemIDInput" type="text" placeholder="ENTER SYSTEM ID" className="p-2 border border-emerald-500 italic rounded bg-slate-600 text-white outline-none" />
-                    <button onClick={handleSystemIDInput}
-                        className="outline-none py-3 px-6 border rounded border-emerald-500 bg-slate-700">SUBMIT</button>
+                    <input id="systemIDInput" type="text" placeholder="ENTER SYSTEM ID" className="p-2 border-2 border-emerald-900 italic rounded bg-slate-900 text-emerald-100 outline-none" />
                 </div>
             )}
             {(waypointsList.length > 0) && (
@@ -70,21 +89,21 @@ export function UnnamedDashboard() {
                             } else {
                                 setDisplayedWaypoints(waypointsList);
                             }
-                        }} className=" rounded bg-slate-800 p-2 px-6 appearance-none font-semibold border border-emerald-500 text-emerald-100 outline-none">
+                        }} className=" rounded bg-slate-800 p-2 px-6 appearance-none font-semibold border-2 border-emerald-900 text-emerald-100 outline-none">
                             <option value="ALL">ALL</option>
                             <option value="MARKETPLACE">MARKETPLACE</option>
                             <option value="SHIPYARD">SHIPYARD</option>
                         </select>
                     </section>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                        {displayedWaypoints.map((waypoint, index) => (
-                            <div key={index} className="flex items-center border border-emerald-500 rounded bg-slate-800 text-emerald-100 p-6 shadow-md shadow-emerald-900">
-                                <DataList labels={waypointLabels} data={[waypoint.symbol]} />
+                        {displayedWaypoints.map((waypoint, index) => {
+                            return (
+                            <div key={index} className={`${typeColors[waypoint.type]} flex items-center rounded bg-slate-800 text-emerald-100 p-6 shadow`}>
+                                <DataList labels={waypointLabels} data={[waypoint.symbol, waypoint.type]} />
                             </div>
-                        ))}
+                        )})}
                     </div>
                 </>
-
             )}
         </div>
     );
